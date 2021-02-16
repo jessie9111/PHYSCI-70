@@ -14,13 +14,106 @@
 <body>
     <header class="masthead bg-primary text-white text-center">
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/week-3.png" width="256" height="256">
-            <h1>Week 3</h1>
+            <h1>Week 3 - Hand Tools and Fabrication. Making Things Move. Mechanical design.</h1>
             <h2 class="font-weight-light mb-0"></h2>
         </div>
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
-            <p class="lead">My final project proposal goes here!</p>
+            <p class="lead">This week our goal was to create a kinetic sculpture
+                and circuitry to move our sculpture. Inspired by Valentine’s Day,
+                 my project from last week, and the cardboard and water bottles
+                  available to me in my dorm room, as well as lots of improvising 
+                  and playing with different methods and ways to attach my motor, 
+                  I decided to create my sculpture called “Flower Garden”!</p>
+
+            <iframe src="https://giphy.com/embed/iMNQ47u7UbYH3bmW3c" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <p><a href="https://giphy.com/gifs/iMNQ47u7UbYH3bmW3c">via GIPHY</a></p>
+
+            <p class="lead">Materials Needed:</p>
+            <ul>
+                <li>2D laser cutted cardboard pieces (see <a href="https://jessie9111.github.io/PHYSCI-70/week-2.html">Week 2</a> 
+                    for instructions for how to build the pentagons and hexagons used in my sculpture. 
+                    I used 3 pentagon and 15 hexagon pieces.) 
+                </li>
+                <li>Scotch tape</li>
+                <li>Half-filled water bottle</li>
+                <li>3 LEDs (yellow, blue, and green)</li>
+                <li>3 100 ohm resistors</li>
+                <li>Red and black wires and a wire cutter</li>
+                <li>Potentiometer</li>
+                <li>Metro M0 board and power source</li>
+            </ul>
+            <br>
+            <h2>Building the Circuit and Sculpture</h2>
+
+            <p class="lead">The circuit consisted of a few major components: 
+                the potentiometer, the motor, three resistors, and three LEDs. 
+                I’ll break down the circuit building into two parts: 
+                1) the potentiometer and the motor and 2) the resistors and LEDs.</p>
+
+            <p class="lead">In order to wire the potentiometer, 
+                I followed the examples from class during which we wired 
+                the potentiometer by wiring the positive pin to 3.3V, 
+                the middle pin to the positive side of the motor, 
+                and the negative side of the motor to GND. </p>
+
+            <img class="img-fluid" width="480" height="360" src="assets/img/potentiometer.jpg">
+            <p class="lead">Image courtesy of Victoria Shen</p>
+
+            <p class="lead">Once I successfully wired the potentiometer and the motor, 
+                I was happy that I had a working motor with changing resistance. 
+                But what would I do with the motor? I decided that if I wanted 
+                to move the motor away from the breadboard to have more 
+                flexibility in making my sculpture, I would have to make the wires longer. 
+                I cut about 18 inches (46 cm) of black and red wire and looped the ends to the 
+                motor’s wire to make the motor stretch away from the breadboard, but I think 
+                12 inches (30 cm) would do since I had a lot of excess wire. I then used lots of tape 
+                (and some failed attempts at using glue) to tape the motor to the cardboard contraption.
+                I used a half-filled water bottle as a stand and taped the motor to the water bottle cap and 
+                the long wires to the side of the water bottle.
+
+            </p>
+
+            <img class="img-fluid" width="480" height="360" src="assets/img/motor.png">
+
+            <p class="lead">At first I wanted to create a flower that both spun and 
+                lit up with LEDs, but after tangling the wires many times, 
+                I decided to create a separate light-up flower. Similar to how I cut 
+                the wires for the motor, I cut three red and three black wires measuring 
+                about 12-18 inches (30-46 cm). The black wires connected to GND 
+                on the breadboard and the negative end of the LEDs, and the red wires 
+                connected from one end of the 100 ohm resistors to the positive end of the LED. 
+                The resistors were connected from the positive row on the breadboard (3.3V) to 
+                the wire connecting to the LED. 
+            </p>
+
+            <p class="lead">At first I forgot to connect a resistor to an LED 
+                and burnt one out because I gave it too much power and not 
+                enough resistance! So I made sure to include a resistor
+                 with each LED connection to avoid burning out more LEDs.
+            </p>
+
+            <p class="lead">I taped the LEDs to my cardboard flower and ended 
+                up with a beautiful light-up creation!
+            </p>
+
+            <img class="img-fluid" width="480" height="360" src="assets/img/led.png">
+
+            <p class="lead">After I finished the two sculptures connected to my circuit, 
+                I decided to build another flower out of the cardboard pieces to finish up my garden.
+            </p>
+
+            <img class="img-fluid" width="480" height="360" src="assets/img/cardboard.png">
+
+            <p class="lead">Here's my final circuit:</p>
+            <img class="img-fluid" width="480" height="360" src="assets/img/circuit.png">
+
+
+            <p class="lead">And my final sculpture!</p>
+            <iframe src="https://giphy.com/embed/t7idTetKchQlThgqoY" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <p><a href="https://giphy.com/gifs/t7idTetKchQlThgqoY">via GIPHY</a></p>
+
         </div>
     </section>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
