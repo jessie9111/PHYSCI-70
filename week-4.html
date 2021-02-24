@@ -27,9 +27,11 @@
             <p class="lead">This week, I modified my project from last week slightly so that I would be able to write programs using the Arduino IDE and run them on my Adafruit Metro M0 Express Microcontroller. 
             </p>
 
-            <p class="lead">Feel free to check out last week’s assignment to learn more about my “Flower Garden” sculpture, but here’s a picture of the sculpture I created. (This is mostly the same as last week except I had to apply a little more Scotch tape and decided to tape the cardboard piece upwards since it kept bumping the water bottle while spinning).</p>
+            <p class="lead">Feel free to check out <a href="https://jessie9111.github.io/PHYSCI-70/week-3.html">last week’s assignment</a> to learn more about my “Flower Garden” sculpture, but here’s a picture of the sculpture I created. (This is mostly the same as last week except I had to apply a little more Scotch tape and decided to tape the cardboard piece upwards since it kept bumping the water bottle while spinning).</p>
 
-            <br>
+            <img class="img-fluid" width="480" height="360" src="assets/img/sculpture-garden.jpg">
+            <br><br>
+
             <h2>Updated Circuit</h2>
 
             <p class="lead">I updated my circuit slightly to use the Metro analog and digital pins rather than only the power supply. For this project, I decided that I wanted to do two things: control motor speed and direction using a microcontroller and potentiometer and create a light show. 
@@ -38,16 +40,33 @@
             <p class="lead"><a href="https://nathanmelenbrink.github.io/ps70/04_arduino/L9110">This class link</a> was a very helpful resource in helping me figure out how to use the Metro M0 Express microcontroller, a potentiometer, a DC motor, and a L9110 motor driver to control the speed and direction of the motor using Arduino code. 
             </p>
 
-            <p class="lead">First, I attached the motor to the L9110 motor driver by screwing my motor leads into the screw terminals using the port for Motor A. Then I connected GND and 3.3V from the Metro to the L9110 (GND and VCC) by combining a pin-pin wire and a socket-socket wire to make a pin-socket wire and making these connections directly to the Metro. Afterwards, I connected the A-1A and A-1B pins of the L9110 to pins 3 and 4 of the Metro. 
+            <p class="lead">First, I attached the motor to the L9110 motor driver by screwing my motor leads into the screw terminals using the port for Motor A. </p>
+            <img class="img-fluid" width="480" height="360" src="assets/img/circuit-motor2.jpg">
+            
+            <p class="lead">Then I connected GND to the negative terminal on the breadboard 
+                and 3.3V from the Metro to the L9110 
+                (GND and VCC) by combining a pin-pin wire and a socket-socket wire 
+                to make a pin-socket wire and making these connections directly to the Metro. 
             </p>
+
+            <p class="lead">
+                I connected the negative terminal on the breadboard to GND using the GND pin on the Digital side of the Metro.
+                Afterwards, I connected the A-1A and A-1B pins of the L9110 to pins 3 and 4 of the Metro. 
+            </p>
+
+            <img class="img-fluid" width="480" height="360" src="assets/img/circuit-motor3.jpg">
 
             <p class="lead">In order to use the potentiometer, I placed it across pins A0, A2, and A4 of the Metro. 
             </p>
 
+            <img class="img-fluid" width="480" height="360" src="assets/img/circuit-motor1.jpg">
+
             <p class="lead">For the LEDs, I connected the lights to pins 8, 9, and 10 by connecting the negative side of the LEDs to GND and the positive side of the LEDs to a 100 ohm resistor that connected to a wire connecting to the three pins on the Metro board.
             </p>
 
-            <br>
+            <img class="img-fluid" width="480" height="360" src="assets/img/circuit-leds.jpg">
+
+            <br><br>
             <h2>Writing the Code</h2>
 
             <p class="lead">Now my circuit is ready to run using some Arduino code!</p>
@@ -103,16 +122,22 @@
                 }
                 </code></pre>
 
+                <p class="lead"> I wrote this Arduino code to define the digital and analog pins for the 
+                    LEDs, potentiometer, and motor, read and print a value given the current potentiometer setting,
+                    control the speed of the motor based on that potentiometer setting, and switch the direction of the
+                    motor and make the lights blink every second.
+                </p>
 
+                <p class="lead">
+                    I realized that the code restricted the motor and the lights from operating on different time frames
+                    due to the delay, so in the future I would like to explore more about how to track how much time has passed
+                    in order to both avoid the <code>delay()</code> function and allow different components of my circuits to run
+                    in different time frames.
+                </p>
 
-
-
-
-
-
-
-
-
+                <br><br>
+                <h2>Final Result</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/I40rX0rgOto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
         </div>
     </section>
