@@ -14,15 +14,80 @@
 <body>
     <header class="masthead bg-primary text-white text-center">
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/week-5.png" width="256" height="256">
-            <h1>Week 5</h1>
+            <h1>Week 5 - 3D Modeling and Printing</h1>
             <h2 class="font-weight-light mb-0"></h2>
         </div>
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
-            <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://github.com/jessie9111/PHYSCI-70/blob/main/jess-head.stl&color=purple&bgcolor=transparent" style="border:0;margin:0;width:100%;height:100%;"></iframe>
+            <p class="lead">This week we worked on 3D Modeling and Printing! I designed my head and imported it into PrusaSlicer to be printed, 
+                and I started designing a component for my final project. </p>
+
+            <br>
+
+            <h2>Scanning My Head</h2>
+            <p class="lead">Using the Bellus 3D app to scan my head, I took a full head scan of my head 
+                (I accidentally only scanned my head and neck at first but switched it to my full head to get a print of my entire head). 
+            </p>
+
+            <p class="lead">Here is the resulting head scan:</p>
+
+            <img class="img-fluid" width="270" height="240" src="assets/img/head-scan.jpg">
+
+            <p class="lead">For $1, I was able to easily export the scan as an STL file. I set the mesh resolution to SD, 
+                export orientation to Z axis up, and mesh smoothness to 1. <a download href='jess-head.stl'>Click here</a>
+                to download the original STL file based on the initial export from the app.
+            </p>
+
+            <p class="lead">Considering the pros and cons of 3D printing this object rather than using other fabrication methods,
+                I think that printing the head could not have been made as easily with subtractive methods because of the detail in the face; there are no components 
+                that could have been easily made by a laser cutter or a CNC machine. If there were components that could have 
+                easily been sliced out of the head, then I think other methods may have been better, but due to the curves and 
+                3D nature of this print, I think 3D printing is worth the additional time and material required.
+            </p>
+
+            <br>
+
+            <h2>Preparing My Head for Printing</h2>
+
+            <p class="lead">I used PrusaSlicer to prepare my file for printing and configured it for the MK3S model printer.
+                The original STL that Bellus 3D exported was too big, so PrusaSlicer scaled it accordingly. I was also able to
+                scale it more so I changed the X axis length to 60mm, and the software scaled it so that the head was
+                60mm by 76.49mm by 76.57mm. 
+            </p>
+
+            <img class="img-fluid" width="480" height="480" src="assets/img/prusaslicer.png">
+
+            <p class="lead">I clicked "Slice Now" and saw the following page with all of the sliced info:</p>
+
+            <img class="img-fluid" width="480" height="480" src="assets/img/prusaslicer-sliced.png">
+
+            <p class="lead">I clicked "Export G-code" which resulted in the this <a download href='jess-head_0.15mm_PLA_MK3SMMU2S_5h19m.gcode'>G-code file</a>. </p>
+
+            <br>
+
+            <h2>Creating a 3D Model for My Final Project</h2>
+
+            <p class="lead">This week, I also started working more on a model for my final project.
+                My current plan is to make a geometric centerpiece and to program a light show within 
+                the design. I may potentially also add a sound sensor that changes the lights based on 
+                sounds being played. <a href="https://www.etsy.com/listing/594391605/glass-geometric-terrarium-wedding-table?ref=related-1">Here</a>
+                is some inspiration for my final project!
+            </p>
+
+            <p class="lead"> I started working on some sketches and inital thougths for what I wanted my design 
+                to look like and how I planned on adding the Arduino and additional components to the design.
+                Where will I fit the Arduino? How many components will I need to create a light show and what 
+                are their dimensions? 
+            </p>
+
+            <img class="img-fluid" width="500" height="500" src="assets/img/centerpiece.jpeg">
         </div>
     </section>
+
+
+
+
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
         <div class="container"><a class="navbar-brand js-scroll-trigger" href="index.html">PHYSCI 70</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
