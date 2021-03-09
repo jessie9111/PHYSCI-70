@@ -132,18 +132,76 @@
                 in order to see the various values at the different settings.
             </p>
 
+            <p class="lead">
+                The measured values of the empty cup ranged from about 18000 to 21000. We can say that the average
+                value when the cup is empty is about 19500 and use this value as a baseline for our future values once 
+                the cup is filled.
+            </p>
+
             <img class="img-fluid" width="800" height="500" src="assets/img/empty_cup.jpg">
+
+            <p class="lead">
+                The measured value of a half-filled water cup is about 309000, so significantly more than an empty cup.
+            </p>
+
             <img class="img-fluid" width="800" height="500" src="assets/img/half_cup.jpg">
+
+            <p class="lead">
+                The measured values of a full water cup is about 314000, so slightly more than a half-filled cup.
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/full_cup.jpg">
+
+            <p class="lead">
+                I then emptied the cup again and found that the measurements were slighlty different than those that
+                I got when I first measured the sensor values using the empty cup, it seems like capacitive sensors
+                can be very sensitive!
+            </p>
 
             <img class="img-fluid" width="800" height="500" src="assets/img/empty_cup_2.png">
 
+            <p class="lead">
+                Now that I'm familar with the values and can use my original value of about 19500 as a baseline, 
+                we can measure chocolate in the cup. My goal is to figure out if some chocolate pieces have been 
+                removed from the cup. This sensor is suitable for this goal because I don't need to know exactly 
+                how many pieces have been taken, I just want to know if the cup is full or has less chocolate than
+                the expected 20 pieces.
+            </p>
+
+            <p class="lead">
+                Here are the measured values when all 20 pieces of chocolate are in the cup. I get an average value
+                in the 27000 to 28500 range.
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_full.jpg">
+
+            <p class="lead">
+                I wondered, what if someone takes one piece of chocolate? It didn't look like there was much change in
+                the capacitance value, which ranged around 27000 to 28000 when the cup held 19 truffles. 
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_almost_full.jpg">
 
+            <p class="lead">
+                What if I removed 5 pieces, leaving only 15 in the cup? It looks like there's a slight drop in value!
+                Now the value averages about 26000. Now I'll know if someone steals a few of my chocolates!
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_15.jpg">
+
+            <p class="lead">
+                Let's try removing more pieces so that the cup is half full (10 pieces left). Most values are around
+                24000:
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_half_full.jpg">
+
+            <p class="lead">
+                Here's the reading at five chocolate pieces which averages around 22000:
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_5.jpg">
+
+            <p class="lead">
+                Everytime I removed five pieces, there was a significant drop in the capacitance value.
+                Looks like the sensor is working well and can detect if a 
+                few pieces are taken from the jar! Now I’ll know next time my roommates 
+                try messing with my chocolate...
+            </p>
 
 
             <br>
@@ -203,10 +261,22 @@
     
             </code></pre>
 
-            
+            <p class="lead">
+                In order to use the sensor, I measured the output values given a quiet environment. 
+                Even without any noise, the value seemed to output an average value of 9.0.
+            </p>
 
             <img class="img-fluid" width="800" height="500" src="assets/img/mic_silent.jpg">
+
+            <p class="lead">
+                The values spiked up to measurements as high as 350 when I clapped over the microphone sensor.
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/clapping.jpg">
+
+            <p class="lead">
+                I also tried singing into the microphone, but it did not reach amplitude values anywhere near the claps
+                with a maximum value of around 17 (only 8 more than the silent baseline).
+            </p>
             <img class="img-fluid" width="800" height="500" src="assets/img/singing.jpg">
 
         </div>
