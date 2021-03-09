@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -21,16 +24,190 @@
     <section id="portfolio" class="portfolio">
         <div class="col">
             <p class="lead">
-                This week we learned about sensors, and I made a capacitive and microphone sensor.
+                This week we learned about sensors, and I made two sensors. 
+                The first sensor uses capacitance to measure a physical quantity, and the
+                second sensor is a microphone used to measure amplitude or loudness. 
+                I used the serial monitor and plotter in the Arduino IDE in order 
+                to calibrate each sensor and visualize the data.
             </p>
 
             <br>
 
             <h2>Capacitive Sensor</h2>
 
+            <p class="lead">
+                My goal for this sensor was to create a tool that was able to measure physical
+                quantities. In this case, I wanted to measure chocolate pieces! I'm not really
+                a snack person so I still have a lot of leftover truffles from Valentine's Day,
+                but I don't want my roommates to steal them! I decided to build a contraption that
+                would measure whether or not some chocolates had been removed from the cup.
+            </p>
+
+            <img class="img-fluid" width="405" height="360" src="assets/img/truffles.jpg">
+            <img class="img-fluid" width="405" height="360" src="assets/img/chocolates.jpg">
+
+            <p class="lead">
+                My first step was wiring the capacitive sensor. Using the steps we learned in class,
+                I created the following capacitive-based sensor by attaching two copper electrodes 
+                (tape on circuitboard material) to wire attached with two 1M ohm resistors to make
+                the signal stabler. I expect for the signal to increase when there is more force between the
+                two copper plates, or when there is more chocolate in the cup!
+            </p>
+
+            <p class="lead">
+                Here is the image of the wiring for the capacitive sensor. One side of one resistor
+                goes to GND, and the other end goes to 3.3V. Then one wire connects where the two
+                resistors meet to the analog A0 pin, which is also in the same row as the wire connected to 
+                one of the copper plates. Finally, the second copper plate is connected to digital pin 4.
+            </p>
+
+            <img class="img-fluid" width="405" height="360" src="assets/img/capacitive.jpg">
+            
+            <p class="lead">
+                Now that my sensor is wired, I'm ready to start building my truffle detector! I simply 
+                taped the copper plates to the cup, applying the tape so the copper part was facing inwards towards
+                the cup.
+            </p>
+
+            <img class="img-fluid" width="405" height="360" src="assets/img/cup.jpg">
+
+            <p class="lead">
+                After learning more about capacitance, I decided to first calibrate my sensors using water.
+                I first measured the values given an empty cup, and then measured the values given a full
+                cup and a half filled cup of water. 
+            </p>
+
+            <p class="lead">
+                I used code from <a href="https://roberthart56.github.io/SCFAB/SC_lab/Sensors/tx_rx_sensors/">Robert Hart's website</a>
+                to program my capacitive sensor to transmit-receive across space between two resistors.
+            </p>
+
+            <pre><code class="language-arduino">
+                //  rx_tx02  Robert Hart Mar 2019.
+                //  Program to use transmit-receive across space between two conductors.
+                //  One conductor attached to pin4, one to A0
+                
+                //  Optionally, two resistors (1 MOhm or greater) can be placed between 5V and GND, with
+                //  the signal connected between them so that the steady-state voltage is 2.5 Volts.
+                
+                //  Signal varies with electric field coupling between conductors, and can
+                //  be used to measure many things related to position, overlap, and intervening material
+                //  between the two conductors.
+                
+
+                int read_high;
+                int read_low;
+                int diff;
+                long int sum;
+                int N_samples = 1000;    //Number of samples to take.  Larger number slows it down, but reduces scatter.
+
+                int analog_pin = A0;
+                int tx_pin = 4;
+
+                void setup() {
+                    pinMode(4,OUTPUT);      //Pin 4 provides the voltage step
+                    Serial.begin(115200);
+                }
+
+                void loop() {
+
+                    sum = 0;
+
+                    for (int i = 0; i < N_samples; i++){
+                        digitalWrite(tx_pin,HIGH);              // Step the voltage high on conductor 1.
+                        read_high = analogRead(analog_pin);     // Measure response of conductor 2.
+                        delayMicroseconds(1000);                // Delay to reach steady state.
+                        digitalWrite(tx_pin,LOW);               // Step the voltage to zero on conductor 1.
+                        read_low = analogRead(analog_pin);      // Measure response of conductor 2.
+                        diff = read_high - read_low;            // Desired answer is the difference between high and low.
+                        sum += diff;                            // Sums up N_samples of these measurements.
+                    }
+                    
+                    Serial.println(sum);
+
+                }
+            </code></pre>
+
+            <p class="lead">I then made some plots using the Arduino IDE (Tools > Serial Monitor) 
+                in order to see the various values at the different settings.
+            </p>
+
+            <img class="img-fluid" width="800" height="500" src="assets/img/empty_cup.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/half_cup.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/full_cup.jpg">
+
+            <img class="img-fluid" width="800" height="500" src="assets/img/empty_cup_2.png">
+
+            <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_full.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_almost_full.jpg">
+
+            <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_15.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_half_full.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/chocolate_5.jpg">
+
+
             <br>
 
             <h2>Microphone Sensor</h2>
+
+            <p class="lead">
+                Wiring the <a href="https://nathanmelenbrink.github.io/ps70/06_input/MEMSmic.html">microphone</a>
+                was pretty straightforward! The SPW2430 board uses an analog MEMS microphone and is 
+                fairly simple to hook up. I connected GND to GND, Vin to 3.3V, 
+                and the analog audio waveform comes out of the DC pin so I have the DC pin
+                connected pin A1 on the Metro M0 Express board.
+            </p>
+
+            <img class="img-fluid" width="405" height="360" src="assets/img/mic_setup.jpg">
+
+            <p class="lead">
+                Here's the code that I used to test the microphone:
+            </p>
+
+            <pre><code class="language-arduino">
+                const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
+                unsigned int sample;
+
+                void setup() {
+                    Serial.begin(9600);
+                }
+
+
+                void loop() {
+                    unsigned long startMillis= millis();  // Start of sample window
+                    unsigned int peakToPeak = 0;   // peak-to-peak level
+
+                    unsigned int signalMax = 0;
+                    unsigned int signalMin = 1024;
+
+                    // collect data for 50 mS
+                    while (millis() - startMillis < sampleWindow)
+                    {
+                        sample = analogRead(1);   //reading DC pin from pin A1
+                        if (sample < 1024)  // toss out spurious readings
+                        {
+                            if (sample > signalMax)
+                            {
+                                signalMax = sample;  // save just the max levels
+                            }
+                            else if (sample < signalMin)
+                            {
+                                signalMin = sample;  // save just the min levels
+                            }
+                        }
+                    }
+                    peakToPeak = signalMax - signalMin;  // max - min = peak-peak amplitude
+
+                    Serial.println(peakToPeak);
+                }
+    
+            </code></pre>
+
+            
+
+            <img class="img-fluid" width="800" height="500" src="assets/img/mic_silent.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/clapping.jpg">
+            <img class="img-fluid" width="800" height="500" src="assets/img/singing.jpg">
 
         </div>
     </section>
