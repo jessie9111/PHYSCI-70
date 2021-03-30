@@ -9,20 +9,150 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
     <header class="masthead bg-primary text-white text-center">
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/week-9.png" width="256" height="256">
-            <h1>Week 9</h1>
+            <h1>Week 9 - Wired Connections (and more networking!)</h1>
             <h2 class="font-weight-light mb-0"></h2>
         </div>
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
             <p class="lead">
-                <a href="week-9-fb.html">Class Firebase Tutorial!</a>
+                This week I worked on connecting my Huzzah and Metro M0 Express 
+                boards using a wired connection in order to control a TFT board
+                 using a WiFi connection!
+
             </p>
+
+            <p class="lead">
+                Here’s the final product:
+            </p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/baXv1cIaIxY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <p class="lead">
+                I went through a few tutorials to do this. I would recommend 
+                checking out and understanding these links if you want to 
+                replicate my project for this week:
+            </p>
+
+            <p class="lead">
+                <ol>
+                    <li><a href="https://jessie9111.github.io/PHYSCI-70/week-7.html">Wiring and Programming a TFT Board on an Arduino Metro M0 Express Board</a></li>
+                    <li><a href="https://jessie9111.github.io/PHYSCI-70/week-8.html">Wiring and Programming a Huzzah and LED</a></li>
+                    <li><a href="https://nathanmelenbrink.github.io/ps70/10_networking/huzzah1b.html">Building a Remote Server Using Firebase</a></li>
+                </ol>
+            </p>
+
+            <br>
+            <h2>Connecting the Boards Using a Wired Connection</h2> 
+
+            <p class="lead">
+                This <a href="https://roberthart56.github.io/SCFAB/SC_lab/Networking/networking/digital_io/index.html">tutorial</a> shows that it is pretty simple 
+                to make two boards communicate with one another. It did take me a little longer than expected though, 
+                as I was trying to figure out the best way to connect the boards, how to make sure they shared 
+                the same ground, and how to power both boards. 
+            </p>
+
+            <p class="lead">
+                Here is how I decided to connect my boards:
+            </p>
+
+            <p class="lead">
+                <ol>
+                    <li>I had to figure out which board was the receiving board and 
+                        which one was the transmitting board. Since the remote server 
+                        is sending the signal to the Huzzah which sends an output signal 
+                        to the Metro M0 Express Board to change the TFT display, I realized 
+                        that the Huzzah is the transmitting board and the Metro M0 Express is 
+                        the receiving board.
+                    </li>
+                    <li>
+                        Now I had to make sure that the correct output pin on the Huzzah corresponded 
+                        with the input pin on the Metro and that the code shows the correct pins. 
+                        On the Huzzah, I made the output pin A5/4 and connected this to the input 
+                        pin 12 on the Metro board. See this <a href="https://learn.adafruit.com/adafruit-huzzah32-esp32-feather/pinouts">link</a>
+                        for the pinouts on the Huzzah.
+                    </li>
+                    <img class="img-fluid" width="500" height="600" src="assets/img/transmit.jpg">
+                    <img class="img-fluid" width="500" height="600" src="assets/img/receive.jpg">
+
+                    <li>
+                        In order to connect the two grounds, I added a wire between the 
+                        second GND pin on the Metro board and the negative terminal 
+                        on the breadboard connecting to GND on the Huzzah.
+                    </li>
+                    <li>
+                        Finally, I used the DC Jack on the Metro board to connect the board 
+                        to power and used my laptop and USB to power the Huzzah.
+                    </li>
+
+                    <img class="img-fluid" width="500" height="600" src="assets/img/huzzah_and_metro.jpg">
+                </ol>
+            </p>
+
+            <br>
+            <h2>Writing the Arduino Scripts for Both Boards</h2>
+
+            <p class="lead">
+                Working from the same <a href="https://roberthart56.github.io/SCFAB/SC_lab/Networking/networking/digital_io/index.html">link</a>, 
+                I was able to write code for the transmitting board (Huzzah) and the receiving board (Metro) 
+                based on the pins I came up with and previously working with the TFT display board, 
+                a Huzzah, and the remote Firebase server. I decided to use the same server that 
+                I created in class used to control an LED remotely, except now when the LED turns on, 
+                I also want to turn on the TFT display as well.
+
+            </p>
+
+            <p class="lead">
+                <a href='assets/transmit.ino' download>Code</a> for the transmitting board (Huzzah):
+            </p>
+
+            <p class="lead">
+                <a href='assets/receive.ino' download>Code</a> for the receiving board (Metro):
+            </p>
+
+            <p class="lead">
+                I used a hotspot on my iPhone in order to connect to the remote server, 
+                so you can input any home or public WiFi or hotspot that your computer 
+                or device is also connected to as the WIFI_SSID and WIFI_PASSWORD input. 
+                See this <a href="https://nathanmelenbrink.github.io/ps70/10_networking/huzzah1b.html">Firebase tutorial</a> 
+                for more information on obtaining your FIREBASE_HOST and FIREBASE_AUTH names.
+            </p>
+
+            <br>
+            <h2>Remote Server</h2>
+
+            <p class="lead">
+                Access my remote server <a href='./week-9-fb.html'>here</a>! Now when my Huzzah, Metro, LED and 
+                TFT display are all powered and connected to my iPhone's hotspot, you will be able to control my
+                devices from anywhere using the remote server!
+            </p>
+
+            <br>
+            <h2>Future Work</h2>
+
+            <p class="lead">
+                The inspiration for this project was to be able to have someone write 
+                words over the remote server to print on the board, but since 
+                I was dealing with <code>digitalRead()</code> and <code>digitalWrite()</code> functions 
+                with only deal with HIGH and LOW inputs and outputs, I was not 
+                able to explore how to get past this binary constraint this week. 
+                However, it would be really cool to keep working more with these 
+                devices in the future to eventually allow someone to print words 
+                on the display remotely! Another idea could be for someone to 
+                enter a number on the remote server, and the LED could flash 
+                that many times while the display prints the number. 
+
+            </p>
+
         </div>
     </section>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
