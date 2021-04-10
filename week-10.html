@@ -9,18 +9,201 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
     <header class="masthead bg-primary text-white text-center">
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/week-10.png" width="256" height="256">
-            <h1>Week 10</h1>
+            <h1>Week 10 - Machine Building</h1>
             <h2 class="font-weight-light mb-0"></h2>
         </div>
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
-            <p class="lead">My final project proposal goes here!</p>
+            <p class="lead">
+                This week we worked on building machines! Using a stepper motor,
+                the <a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266">Huzzah</a>,
+                <a href="https://www.pololu.com/product/2134">DRV8834 Low-Voltage Stepper Driver</a>,
+                <a href="https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x42x34mm-4-wires.html?search=Nema%2017%20Bipolar%201.8deg%2026Ncm%20%2836.8oz.in%29%200.4A%2012V%2042x42x34mm%204%20Wires">Stepper Motor</a>,
+                laser cutted parts, and a capacitor and a button, I made a machine! 
+            </p>
+
+            <p class="lead">
+                I constructed a pulley system using lasercut parts in class using this <a href="https://nathanmelenbrink.github.io/ps70/12_machine/machines.html"></a>tutorial.
+                It took a while to fully assemble the design, and I had to raise and lower the aluminum 
+                pulley to make sure that the timing belt was straight. I also built the entire carriage 
+                and then installed it on the pulley rather than keeping it as two separate parts. 
+                This made it more difficult to troubleshoot because it took me a while to realize 
+                how loose the screws were on the carriage.
+            </p>
+
+            <img class="img-fluid" width="300" height="400" src="assets/img/pulley-1.jpg">
+            <img class="img-fluid" width="300" height="400" src="assets/img/pulley-2.jpg">
+            <img class="img-fluid" width="300" height="400" src="assets/img/pulley-3.jpg">
+
+            <br>
+
+            <p class="lead">
+                Now that I had a machine built, I needed to wire the stepper motor using 
+                the Wiring section of this <a href="https://nathanmelenbrink.github.io/ps70/12_machine/steppers.html">tutorial</a>. 
+                I decided to follow the power guidelines provided in the instructions and 
+                use a barrel jack connector to connect a 9V wall outlet supply as the motor power 
+                supply, and used 3V on the Huzzah as the logic power supply. 
+            </p>
+
+            <img class="img-fluid" width="500" height="600" src="assets/img/stepper-1.jpg">
+            <img class="img-fluid" width="500" height="600" src="assets/img/stepper-2.jpg">
+
+            <br>
+
+            <p class="lead">
+                I then tested the code at the most basic level to see how well my machine worked. 
+                This code controls the chopper driver by sending pulses to the STEP pin of the driver.
+            </p>
+
+            <pre><code class="language-arduino">
+                const int stepPin = 13;
+                const int dirPin = 12;
+                
+                void setup() {
+                  // put your setup code here, to run once:
+                  pinMode(stepPin, OUTPUT);
+                  pinMode(dirPin, OUTPUT);
+                
+                  digitalWrite(dirPin, LOW);
+                }
+                
+                void loop() {
+                  // put your main code here, to run repeatedly:
+                  digitalWrite(stepPin, LOW);
+                  delay(50);
+                  digitalWrite(stepPin, HIGH);
+                  delay(50);
+                }
+            </code>
+            </pre>
+
+            <p class="lead">It works!</p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/s0Dhcty-sRY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <p class="lead">Now I wanted to try using the <a href="https://www.arduino.cc/en/reference/stepper">Arduino Stepper Motor Library</a>
+                and the <a href="https://www.airspayce.com/mikem/arduino/AccelStepper/index.html">AccelStepper library</a> to try different driver configurations,
+                 acceleration/deceleration, and non-blocking functions.
+                 Here’s the example code that randomly changes speed, position, and acceleration:
+            </p>
+
+            <pre><code class="language-arduino">
+                #include <AccelStepper.h>
+
+                const int stepPin = 13;  // blue
+                const int dirPin = 12;   // orange
+                
+                // Define a stepper and the pins it will use
+                AccelStepper stepper(1, stepPin, dirPin); // initialise accelstepper for a two wire board
+                
+                void setup()
+                {
+                }
+                
+                void loop()
+                {
+                    if (stepper.distanceToGo() == 0)
+                    {
+                    // Random change to speed, position and acceleration
+                    // Make sure we don’t get 0 speed or accelerations
+                    delay(1000);
+                    stepper.moveTo(rand() % 1000);
+                    stepper.setMaxSpeed((rand() % 1000) + 1);
+                    stepper.setAcceleration((rand() % 1000) + 1);
+                    }
+                    stepper.run();
+                }
+                    
+            </code></pre>
+
+            <p class="lead">
+                And here’s the result! 
+            </p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ixYZdLfpnvU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <p class="lead">Now that I have this machine, what do I want to do with it?
+            </p>
+
+            <p class="lead"><a href="http://amymzhou.com/ps70/">Amy</a> gave me the idea of making a selfie machine! 
+                I had never used the ESP32 cam so I thought this would be a cool project to try!
+</p>
+            <p class="lead">
+                I used these tutorials to set up the ESP32 Cam by installing the driver 
+                and wiring the camera to the FTDI programmer in the kit. 
+                Wiring the camera and running the code (File > Examples > ESP32 > Camera 
+                and opened the CameraWebServer example) was more straightforward than 
+                I expected. Using a foam sheet, some blue tape, and a part from the 
+                lasercut pieces to attach on the top of the carriage, 
+                I connected my ESP32 cam to my simple machine. I decided to 
+                power the cam using my laptop after uploading the code and 
+                powered the Huzzah using a USB cable and a wall socket. 
+                With my machine and camera connected and my iPhone’s hotspot on, 
+                I was able to create a machine that could allow me to try all different 
+                angles to take the perfect selfie!
+            </p>
+
+            <img class="img-fluid" width="500" height="600" src="assets/img/esp32-cam.jpg">
+
+            <p class="lead">It took much more time than expected to try out the AccelStepper library; 
+                it took me a while to understand the code and the stepper motor libraries, as well as how to convert
+                steps to linear travel distance. With some example 
+                code and inspiration from <a href="https://amymzhou.com/ps70///week10/">Amy's site</a>, I figured out how to use
+                this code to make my pulley run properly, setting the steps to 1000 across the pulley, max speed to 500,
+                and max acceleration to 500.
+                
+                <pre><code class="language-arduino">
+                    #include <AccelStepper.h>
+
+                    const int stepPin = 13;  // blue
+                    const int dirPin = 12;   // orange
+                    
+                    // Define a stepper and the pins it will use
+                    AccelStepper stepper(1, stepPin, dirPin); // initialise accelstepper for a two wire board
+                    
+                    void setup()
+                    {
+                    }
+                    
+                    void loop()
+                    {
+                    if (stepper.distanceToGo() == 0)
+                    {
+                        delay(1000);
+                        
+                        stepper.setMaxSpeed(500);
+                        stepper.setAcceleration(500);
+                        stepper.moveTo(1000);
+                    }
+                    stepper.run();
+                    if (stepper.distanceToGo() == 0)
+                    {
+                        delay(1000);
+                        
+                        stepper.setMaxSpeed(500);
+                        stepper.setAcceleration(500);
+                        stepper.moveTo(-1000);
+                    }
+                    }
+                </code>
+                </pre>
+            </p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/_ZqgwQQ7u8s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <p class="lead">I would have liked to explore more ways to make the pulley run smoother, but overall
+                 I enjoyed learning a lot about machine building, stepper motors, and the ESP32 cam!</p>
+            
         </div>
     </section>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
