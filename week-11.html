@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -20,10 +24,159 @@
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
-            <p class="lead">This week’s assignment was to send data to a computer and write 
-                code to display results. I decided to continue to work with the ESP32 Cam 
-                and Firebase in order to create my own photo editor! 
+            <p class="lead">This week’s assignment was to send data to a computer 
+                and write code to display results. I ended up creating a graph 
+                using potentiometer data as my final result, but I went through 
+                several examples and challenges before getting to this result. 
             </p>
+
+            <p class="lead">I followed this <a href="https://www.youtube.com/watch?v=Hx7bdpev1ug&ab_channel=fuchungyi">tutorial</a> at first
+                but I had some trouble obtaining the secret key from Firebase and 
+                uploading the code from the <a href="https://github.com/fustyles/Arduino/blob/master/ESP32-CAM_Firebase/ESP32-CAM_Firebase.ino">GitHub</a>
+                to my device. For some reason, when I clicked on Project Settings → Service Accounts → Database Secrets, 
+                I couldn’t see the page in the tutorial where it shows you the secret key and 
+                database ID or the ‘Add Secret’ button. </p>
+
+            <p>Tutorial: 
+            <img class="img-fluid" width="500" height="500" src="assets/img/esp-cam-tutorial.png"></p>
+
+            <p>My Firebase Page: 
+            <img class="img-fluid" width="500" height="500" src="assets/img/esp32-cam-firebase.png"></p>
+
+            <p class="lead">
+                I tried downloading a JSON file that contained what looked like a secret 
+                key by clicking ‘Generate New Private Key’ in the Firebase Admin SDK tab 
+                and inserting that in <a href="https://github.com/fustyles/Arduino/blob/master/ESP32-CAM_Firebase/ESP32-CAM_Firebase.ino">this Arduino source code</a>, 
+                but then I got another error: <i>Error: no matching function for call to 'FirebaseESP32::pushJSON(FirebaseData&, String&, String&)'
+                </i>
+            </p>
+
+            <p class="lead">After making sure several libraries were installed (Firebase Arduino based on WiFi101, 
+                Firebase Arduino based on WiFiNINA, Firebase Client Library for ESP8266 and ESP32,
+                Firebase ESP32 Client, and ArduinoJSON), researching the error, 
+                and still not getting it to work, I decided to move on to one of the 
+                several examples on the <a href="https://nathanmelenbrink.github.io/ps70/13_programming/index.html">page</a>. 
+            </p>
+
+            <p class="lead">
+                There were several projects that seem like they would be very cool to work 
+                on in the future, and I spent a good amount of time just reading through 
+                some examples. 
+                <ui>
+                    <li><a href="https://nathanmelenbrink.github.io/ps70/13_programming/p5-usb.html">Plotting Points in 3D Space with p5 and WebUSB</a></li>
+                    <li><a href="https://randomnerdtutorials.com/esp32-cam-opencv-js-color-detection-tracking/">ESP32-CAM Web Server with OpenCV.js</a></li>
+                    <li><a href="https://randomnerdtutorials.com/telegram-esp32-cam-photo-arduino/">Telegram: ESP32-CAM Take and Send Photo (Arduino IDE)</a></li>
+                </ui>
+            </p>
+
+            <p class="lead">I ended up deciding to solidify the basics with the P5 serial example 
+                which took me much longer than expected to get up and running. I mainly walked 
+                through this <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-input-to-the-p5-js-ide/">Serial Input to P5.js tutorial</a>
+                to visualize sensor data from the potentiometer using the Adafruit Metro M0 Express Board, three wires, a breadboard, and a potentiometer. 
+                I wired the middle pin of the potentiometer to A0, one pin to 3.3V, and one bin to GND on the Metro board.
+            </p>
+            
+            <img class="img-fluid" width="500" height="500" src="assets/img/pot-week-11.jpg">
+            
+            <p class="lead">I uploaded the following code to the Metro board then explored how to get the browser up and running:</p>
+            
+            <pre><code class="language-arduino">
+                void setup() {
+                    Serial.begin(9600); // initialize serial communications
+                  }
+                   
+                  void loop() {
+                    int potentiometer = analogRead(A0);                  // read the input pin
+                    int mappedPot = map(potentiometer, 0, 1023, 0, 255); // remap the pot value to fit in 1 byte
+                    Serial.write(mappedPot);                             // print it out the serial port
+                    delay(1);                                            // slight delay to stabilize the ADC
+                  }                     
+            </code></pre>
+
+            <p class="lead">
+                I wanted to try running the P5 server on the command line, but it took me a while to 
+                find how to do this since it wasn’t included in the tutorial I was following. 
+                Once I did find it <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-output-from-p5-js/">here</a> 
+                in the ‘Running the P5 Server on the Command Line Section’ and <a href="https://www.npmjs.com/package/p5.serialserver">here</a>, 
+                I tried both command line examples but couldn’t get either of them to work. 
+            </p>
+
+            <img class="img-fluid" width="500" height="500" src="assets/img/error-p5.png">
+
+            <p class="lead">I gave up on this method and switched to <a href="https://github.com/p5-serial/p5.serialcontrol/releases"> 
+                downloading the p5.serialcontrol application</a> instead. Chrome wouldn’t let me download the application 
+                due to privacy concerns, so I had to download it using Safari and then go to 
+                System Preferences → Security and Privacy on my MacBook in order to open the application.</p>
+
+            <p class="lead">Once I opened the application, I was able to get everything up and running! 
+                I connected to my Metro board on port ‘/dev/tty.usbmodem14101’.</p>
+
+            <img class="img-fluid" width="500" height="500" src="assets/img/p5-server.png">
+
+            <p class="lead">Now that the server was running, I was able to follow the rest of the 
+                tutorial smoothly in order to print the potentiometer sensor value in text on the screen. 
+                I printed the list of ports using a function called <code>printList()</code> and 
+                displayed the data as a string within the <code>draw()</code> function.</p>
+
+            <p class="lead"><a href="https://github.com/jessie9111/PHYSCI-70/blob/main/p5serial">Click here to see my code.</a></p>
+            
+            <img class="img-fluid" width="500" height="500" src="assets/img/inspect-sensor.png">
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/C5MPOTSeVpE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <p class="lead">Now let’s try graphing the sensor value data! 
+                I first created a global variable called xPos to track the 
+                x-position of the latest graph line.
+            </p>
+
+            <pre><code class = "language-js">
+                let serial;                               // variable to hold an instance of the serialport library
+                let portName = '/dev/tty.usbmodem14101';  // fill in your serial port name here
+                let inData;                               // for incoming serial data
+                let serialDiv;                            // an HTML div to show incoming serial data
+                let xPos = 0;                             // x position of the graph                
+            </code>
+            </pre>
+
+            <p class="lead">Then I made a function called <code>graphData()</code> that takes in a number 
+                value as a parameter, draws a line that’s mapped to the number value, 
+                and increments <code>xPos</code> so the next line is further along. When <code>xPos</code> is at 
+                the right edge of the screen, it resets the <code>background()</code>.
+            </p>
+
+            <pre><code class="language-js">
+                function graphData(newData) {
+                    // map the range of the input to the window height:
+                    var yPos = map(newData, 0, 255, 0, height);
+                    // draw the line in a pretty color:
+                    stroke(0xA8, 0xD9, 0xA7);
+                    line(xPos, height, xPos, height - yPos);
+                    // at the edge of the screen, go back to the beginning:
+                    if (xPos >= width) {
+                      xPos = 0;
+                      // clear the screen by resetting the background:
+                      background(0x08, 0x16, 0x40);
+                    } else {
+                      // increment the horizontal position for the next reading:
+                      xPos++;
+                    }
+                  }                
+            </code></pre>
+
+            <p class="lead">Finally I called only <code>graphData(inData)</code> in the <code>draw()</code> function and got a graph!
+            </p>
+
+            <img class="img-fluid" width="500" height="500" src="assets/img/pot-graph.png">
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VnLZ7uvcdzE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <p class="lead">Overall, I had a fun time overcoming some challenges and discovering 
+                what goes into establishing serial communication to a web page in a browser. 
+                I really enjoyed exploring all of the different avenues to apply these software 
+                and hardware combos, particularly P5 and the Metro M0 Express board, 
+                and I hope to explore them further soon!
+            </p>
+
         </div>
     </section>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
