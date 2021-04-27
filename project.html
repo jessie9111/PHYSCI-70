@@ -9,23 +9,45 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body id="page-top">
     <header class="masthead bg-primary text-white text-center">
-        <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/profile.png">
+        <div class="container">
             <h1>Final Project</h1>
             <h2 class="font-weight-light mb-0"></h2>
         </div>
     </header>
     <section id="portfolio" class="portfolio">
         <div class="col">
-            <p class="lead">Final Project Plan: Create a centerpiece compromised of LED Strips
-                and a Huzzah that can be controlled using a wireless application and changes light
-                color and style based on people's input on the application.
+            <h3>Final Project Goal</h3>
+            <p class="lead"><b>Goal of my final project: Create a centerpiece compromised of LED Strips
+                and a Huzzah that can change light color and style through a Firebase web-based application</b>
+            </p>
 
-            </p><p class="lead"> I first started by working on a model for my final project.
-                <a href="https://www.etsy.com/listing/594391605/glass-geometric-terrarium-wedding-table?ref=related-1">Here</a>
+            <h3>Materials</h3>
+            <p>
+                <ul>
+                    <li class = "lead"><a href="https://learn.adafruit.com/adafruit-huzzah32-esp32-feather/pinouts" target="_blank">Adafruit ESP32 Feather (HUZZAH32)</a></li>
+                    <li class = "lead">Five Neopixel LED Strips (ideally with adhesive tape attached)</li>
+                    <li class = "lead">Five Female / Female Jumper Wires</li>
+                    <li class = "lead">Five 470 ohm resistors</li>
+                    <li class = "lead">USB cable to upload code to the Huzzah</li>
+                    <li class = "lead">Portable 5V battery</li>
+                    <li class = "lead">3D modeled centerpiece / container to contain wires,
+                        LED strips, and Huzzah
+                    </li>
+                </ul>
+            </p>
+
+            <h3>Designing and Fabrication</h3>
+
+            <p class="lead"> I first started by working on a model for my final project.
+                <a href="https://www.etsy.com/listing/594391605/glass-geometric-terrarium-wedding-table?ref=related-1" target="_blank">Here</a>
                 is some inspiration for the project!
             </p>
 
@@ -37,10 +59,10 @@
 
             <img class="img-fluid" width="500" height="500" src="assets/img/centerpiece.jpeg">
 
-            <p class="lead">I found <a href="https://forums.autodesk.com/t5/fusion-360-design-validate/tips-to-make-geometric-vase/td-p/5532709">this link</a> about asking how to make geometric 3D shapes in Fusion, so 
+            <p class="lead">I found <a href="https://forums.autodesk.com/t5/fusion-360-design-validate/tips-to-make-geometric-vase/td-p/5532709" target="_blank">this link</a> about asking how to make geometric 3D shapes in Fusion, so 
                 I figured I would try to explore this more and build my design off of that. I also did some 
                 preliminary measurements and found that 80mm for each side would be a good place to start.
-                I used <a href="https://www.autodesk.com/products/fusion-360/blog/parametric-modeling-in-fusion-360-tutorial/">parametric modeling</a>
+                I used <a href="https://www.autodesk.com/products/fusion-360/blog/parametric-modeling-in-fusion-360-tutorial/" target="_blank">parametric modeling</a>
                  just in case I want to change the dimensions later.
             </p> 
 
@@ -59,7 +81,135 @@
             <p class="lead">Download my <a download href='edwards-final-project_0.3mm_PLA_MK3SMMU2S_13h2m.gcode'>G-code file</a> here.</p>
 
             <p class="lead">Download my <a download href='edwards-final-project.stl'>STL file</a> or
-            see the STL file <a href="https://github.com/jessie9111/PHYSCI-70/blob/main/edwards-final-project.stl">here.</a></p>
+            see the STL file <a href="https://github.com/jessie9111/PHYSCI-70/blob/main/edwards-final-project.stl" target="_blank">here.</a></p>
+
+            <h3>Wiring the LED Strips Inside the Centerpiece</h3>
+            
+            <p class="lead">
+                I first wanted to connect one LED strip to the Huzzah and then extend the wiring and code to the five
+                LED strips. I looked at this <a href="https://nathanmelenbrink.github.io/ps70/08_output/led-buzzers" target="_blank">link</a>
+                for a reminder on how to wire LED strips, and <a href="https://learn.adafruit.com/adafruit-huzzah32-esp32-feather/pinouts" target="_blank">here</a>
+                for the Adafruit HUZZAH32-ESP32 Feather pinouts. After wiring the power on the strip to USB on the Huzzah, GND to GND, and Din to GPIO #13, 
+                I made sure the NeoPixel library was installed using the Library Manager and loaded the strandtest example (File -> Examples
+                scroll down to Adafruit Neopixel -> strandtest).
+            </p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/XzgjD7AJ7JQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <p class="lead">
+                Now it's time to wire all five LED strips! After sticking them to the 3D model using the strips' 
+                adhesive tape, I connected the power on the strips to the USB pin on the Huzzah wired to the positive 
+                side of the breadboard, GND to GND and the negative terminal on the breadboard, and used female/female 
+                jumper wires to connect the Din wire on the strips to a 470 ohm resistor which I connected to pins on the 
+                Huzzah. I used GPIO pins 12, 27, 33, 25, and 34 to do this. 
+            </p>
+
+            <p class="lead">
+                While not that difficult, the wiring is currently very messy! I also couldn't get all of the strips
+                to work during my first couple attempts :/ When I tried testing the strips the first time using a 
+                modified version of the strandtest code, I only got three strips to work. After moving around the Din
+                connections, I was able to get four strips to work. I will continue to troubleshoot until I can get all five 
+                strips to work, but for now, here's my code and a few videos! 
+            </p>
+
+            <pre><code>
+                #include Adafruit_NeoPixel.h
+                #ifdef __AVR__
+                    #include avr/power.h
+                #endif
+                
+                #define PIN1 12
+                #define PIN2 27
+                #define PIN3 33
+                #define PIN4 25
+                #define PIN5 34
+                
+                // Parameter 1 = number of pixels in strip
+                // Parameter 2 = Arduino pin number (most are valid)
+                // Parameter 3 = pixel type flags, add together as needed:
+                //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+                //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
+                //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+                //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
+                //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+                Adafruit_NeoPixel strip1 = Adafruit_NeoPixel(10, PIN1, NEO_GRB + NEO_KHZ800);
+                Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(10, PIN2, NEO_GRB + NEO_KHZ800);
+                Adafruit_NeoPixel strip3 = Adafruit_NeoPixel(10, PIN3, NEO_GRB + NEO_KHZ800);
+                Adafruit_NeoPixel strip4 = Adafruit_NeoPixel(10, PIN4, NEO_GRB + NEO_KHZ800);
+                Adafruit_NeoPixel strip5 = Adafruit_NeoPixel(10, PIN5, NEO_GRB + NEO_KHZ800);
+                
+                // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
+                // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
+                // and minimize distance between Arduino and first pixel.  Avoid connecting
+                // on a live circuit...if you must, connect GND first.
+                
+                void setup() {
+                    // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
+                    #if defined (__AVR_ATtiny85__)
+                    if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
+                    #endif
+                    // End of trinket special code
+                
+                    strip1.begin();
+                    strip1.show(); // Initialize all pixels to 'off'
+                
+                    strip2.begin();
+                    strip2.show(); // Initialize all pixels to 'off'
+                
+                    strip3.begin();
+                    strip3.show(); // Initialize all pixels to 'off'
+                
+                    strip4.begin();
+                    strip4.show(); // Initialize all pixels to 'off'
+                
+                    strip5.begin();
+                    strip5.show(); // Initialize all pixels to 'off'
+                }
+                
+                void loop() {
+                    // Some example procedures showing how to display to the pixels:
+                    colorWipe_all(strip1.Color(255, 0, 0), 50); // Red
+                    colorWipe_all(strip1.Color(0, 255, 0), 50); // Green
+                    colorWipe_all(strip1.Color(0, 0, 255), 50); // Blue
+                }
+                
+                // Fill the dots one after the other with a color
+                void colorWipe_all(uint32_t c, uint8_t wait) {
+                    for(uint16_t i=0; i < strip1.numPixels(); i++) {
+                    strip1.setPixelColor(i, c);
+                    strip1.show();
+                
+                    strip2.setPixelColor(i, c);
+                    strip2.show();
+                
+                    strip3.setPixelColor(i, c);
+                    strip3.show();
+                
+                    strip4.setPixelColor(i, c);
+                    strip4.show();
+                
+                    strip5.setPixelColor(i, c);
+                    strip5.show();
+                    delay(wait);
+                    }
+                }
+            </code>
+            </pre>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/XuK_XzXGzMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/bB12o8H1Tf0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <h3>Next Steps</h3>
+            <p class = "lead">
+                <ul>
+                    <li class = "lead">Get all strips to work consistently and avoid burnout</li>
+                    <li class = "lead">Play with different light shows and decide how I want users to control the designs</li>
+                    <li class = "lead">Clean up the wiring and make my model more aesthetically pleasing</li>
+                    <li class = "lead">Design a web-based application using Firebase</li>
+                  </ul>
+            </p>
+
 
         </div>
 
