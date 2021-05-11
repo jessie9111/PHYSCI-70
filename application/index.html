@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Color Vibes (PS70 Final Project)</title>
+
+
+    <link rel="stylesheet" href="application.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+
+</head>
+
+<body id="page-top">
+
+    <script>
+        let colorPicker = document.getElementById("color_picker");
+  
+        /*colorPicker.addEventListener("change", function(event) {
+            console.log(new TextEncoder("utf-8").encode(colorPicker.value));
+        }); */
+
+        var romantic = new Audio(); 
+        romantic.src = "assets/music/romantic.mp3";
+
+        var vibes = new Audio();
+        vibes.src = "assets/music/vibes.mp3";
+
+        var sunrise = new Audio();
+        sunrise.src = "assets/music/sunrise.mp3";
+
+        var chill = new Audio();
+        chill.src = "assets/music/chill.mp3";
+
+        var waves = new Audio();
+        waves.src = "assets/music/waves.mp3";
+
+        var winter = new Audio();
+        winter.src = "assets/music/winter.mp3";
+
+        var christmas = new Audio();
+        christmas.src = "assets/music/christmas.mp3";
+
+        var birthday = new Audio();
+        birthday.src = "assets/music/birthday.mp3";
+
+
+    </script>
+
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <header class="d-sm-flex" style="height: 30px;"></header>
+            <div id="content" style="font-size: 30px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="text-primary font-weight-bold m-0">Click below to pick a color:</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="color-picker-container">
+                                        <input type="color" id="color_picker" value="#00ff00" class="color-picker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <button id = "off" type="button" style="border:none; background: none;" onclick="window.location.reload()">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h2 class="text-primary font-weight-bold m-0">OFF</h6>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h6 class="text-primary font-weight-bold m-0">Or click one of the following themes:</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                
+                                <button id = "romantic" type="button" style="border:none; background: none;" onclick="romantic.play()">
+                                
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: rgb(200,28,111);">Romantic</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"></div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "vibes" type="button" style="border:none; background: none;" onclick="vibes.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: rgb(78,223,101);">Party Vibes</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "sunrise" type="button" style="border:none; background: none;" onclick="sunrise.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;">Sunrise</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "chill" type="button" style="border:none; background: none;" onclick="chill.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: var(--cyan);">Chill</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "waves" type="button" style="border:none; background: none;" onclick="waves.play()">
+                                <div class="card-body" style="color: var(--blue);">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: var(--blue);">Ocean Waves</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "winter" type="button" style="border:none; background: none;" onclick="winter.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: rgb(129,147,194);">Winter Wonderland</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "christmas" type="button" style="border:none; background: none;" onclick="christmas.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: var(--success);">Christmas</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <button id = "birthday" type="button" style="border:none; background: none;" onclick="birthday.play()">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span style="font-size: 30px;color: var(--pink);">Birthday</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+
+</html>
